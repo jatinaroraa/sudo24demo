@@ -50,31 +50,15 @@ export default function App() {
         method: 'POST',
       });
       console.log(res.data, 'response');
-      // fetch(`${url}`, {
-      //   method: 'POST',
-      //   body: createFormData(photo),
-      //   // 'Content-Type': 'multipart/form-data',
-      //   Headers: headers,
-      // })
-
-      // if (res.data) {
-      //   // return Toast.show({
-      //   //   type: 'sucess',
-      //   //   text1: 'Uploaded',
-      //   //   text2: `${res.data.message}`,
-      //   //   // position: 'bottom',
-      //   //   visibilityTime: 3000,
-      //   // });
-      // }
     } catch (error) {
       console.log(error, 'error in upload');
-      // return Toast.show({
-      //   type: 'error',
-      //   text1: 'Error',
-      //   text2: `${error.data.message}`,
-      //   // position: 'bottom',
-      //   visibilityTime: 3000,
-      // });
+      return Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: `${error.data.message}`,
+        // position: 'bottom',
+        visibilityTime: 3000,
+      });
     }
   };
   const handleChoosePhoto = () => {
@@ -88,7 +72,7 @@ export default function App() {
         },
         response => {
           // console.log(response);
-          if (response) {
+          if (response.assets) {
             console.log(response, 'uploaded');
             setPhoto(response?.assets[0]);
             setImageUri(response?.assets[0].uri);
