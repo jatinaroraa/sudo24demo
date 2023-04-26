@@ -50,12 +50,21 @@ export default function App() {
         method: 'POST',
       });
       console.log(res.data, 'response');
+      if (res.data) {
+        return Toast.show({
+          type: 'success',
+          text1: 'Uploaded',
+          text2: `${res.data.message}`,
+          // position: 'bottom',
+          visibilityTime: 3000,
+        });
+      }
     } catch (error) {
       console.log(error, 'error in upload');
       return Toast.show({
         type: 'error',
         text1: 'Error',
-        text2: `${error.data.message}`,
+        text2: `Image not uploaded`,
         // position: 'bottom',
         visibilityTime: 3000,
       });
