@@ -75,16 +75,19 @@ export default function App() {
       launchImageLibrary(
         {
           mediaType: 'photo',
-          includeBase64: false,
+          includeBase64: true,
           maxHeight: 200,
           maxWidth: 200,
         },
         response => {
-          // console.log(response);
           if (response.assets) {
-            console.log(response, 'uploaded');
+            // console.log(response, 'uploaded');
+
             setPhoto(response?.assets[0]);
-            setImageUri(response?.assets[0].uri);
+
+            setImageUri(
+              `data:${response.assets[0].type};base64,${response.assets[0].base64}`,
+            );
           }
           //else show warning
         },
@@ -121,7 +124,7 @@ export default function App() {
         </TouchableOpacity>
       </View>
       <View>
-        {imgUri ? <Image style={styles.image} source={imgUri} /> : ''}
+        {imgUri ? <Image style={styles.image} source={{uri: imgUri}} /> : ''}
       </View>
       <Toast />
     </View>
